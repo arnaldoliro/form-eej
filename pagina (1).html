@@ -1,0 +1,287 @@
+<html lang="pt-BR"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Inscrição</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #ff7b25;
+            --light-orange: #ffa559;
+            --yellow: #ffc93c;
+            --black: #333333;
+            --gray: #f5f5f5;
+            --dark-gray: #777777;
+            --error: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gray);
+            color: var(--black);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--orange), var(--yellow));
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .form-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .form-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: white;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(255, 123, 37, 0.2);
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-control.error {
+            border-color: var(--error);
+        }
+
+        .form-control.error + .error-message {
+            display: block;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--orange), var(--light-orange));
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #ff6a00, #ffa000);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 123, 37, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 576px) {
+            .form-header {
+                padding: 20px;
+            }
+            
+            .form-header h1 {
+                font-size: 24px;
+            }
+            
+            .form-body {
+                padding: 20px;
+            }
+            
+            .form-control {
+                padding: 12px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h1>Inscreva-se agora</h1>
+            <p>Preencha o formulário abaixo para se cadastrar</p>
+        </div>
+        <div class="form-body">
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="fullname">Nome completo</label>
+                    <input type="text" id="fullname" class="form-control" placeholder="Digite seu nome completo" required="">
+                    <span class="error-message">Por favor, informe seu nome completo</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" class="form-control" placeholder="Digite seu e-mail" required="">
+                    <span class="error-message">Por favor, informe um e-mail válido</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Telefone</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="(00) 00000-0000" required="">
+                    <span class="error-message">Por favor, informe um telefone válido</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="birthdate">Data de nascimento</label>
+                    <input type="date" id="birthdate" class="form-control" required="">
+                    <span class="error-message">Por favor, informe sua data de nascimento</span>
+                </div>
+                
+                <button type="submit" class="btn">Enviar inscrição</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('signup-form');
+            const inputs = form.querySelectorAll('.form-control');
+            
+            // Máscara para telefone
+            const phoneInput = document.getElementById('phone');
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 11) value = value.slice(0, 11);
+                
+                if (value.length > 2) {
+                    value = '(' + value.substring(0, 2) + ') ' + value.substring(2);
+                }
+                if (value.length > 10) {
+                    value = value.substring(0, 10) + '-' + value.substring(10);
+                }
+                
+                e.target.value = value;
+            });
+            
+            // Validação de campos
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateField(input);
+                });
+                
+                input.addEventListener('input', function() {
+                    if (input.classList.contains('error')) {
+                        validateField(input);
+                    }
+                });
+            });
+            
+            // Validação do formulário no envio
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (!validateField(input)) {
+                        isValid = false;
+                    }
+                });
+                
+                if (isValid) {
+                    // Simulação de envio bem-sucedido
+                    alert('Formulário enviado com sucesso!');
+                    form.reset();
+                }
+            });
+            
+            function validateField(input) {
+                let isValid = true;
+                
+                if (input.value.trim() === '') {
+                    setError(input);
+                    isValid = false;
+                } else {
+                    if (input.type === 'email') {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(input.value)) {
+                            setError(input);
+                            isValid = false;
+                        } else {
+                            removeError(input);
+                        }
+                    } else if (input.id === 'phone') {
+                        const phoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
+                        if (!phoneRegex.test(input.value)) {
+                            setError(input);
+                            isValid = false;
+                        } else {
+                            removeError(input);
+                        }
+                    } else {
+                        removeError(input);
+                    }
+                }
+                
+                return isValid;
+            }
+            
+            function setError(input) {
+                input.classList.add('error');
+            }
+            
+            function removeError(input) {
+                input.classList.remove('error');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'95962946b4ffe2b8',t:'MTc1MTU0MzM4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe>
+
+</body></html>
