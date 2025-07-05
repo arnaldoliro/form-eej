@@ -10,8 +10,8 @@ const checkboxConf = document.getElementById("confidential");
 const loveField = document.getElementById("love");
 
 const mensagensDelayInput = [
-  "Você está rápido demais, qual é a pressa?",
-  "Falei para esperar um pouco, não foi?",
+  "Você está rápido demais, digite mais devagar",
+  "Falei para esperar um pouco, digite ainda mais devagar",
   "Agora você vai ter que esperar!",
 ];
 
@@ -94,8 +94,8 @@ function disableInputField(inputField, delay = 5000) {
   }, 1000);
 }
 
-forcarDelayInput(document.getElementById("cpf"), 1000);
-forcarDelayInput(document.getElementById("cep"), 1000);
+forcarDelayInput(document.getElementById("cpf"), 500);
+forcarDelayInput(document.getElementById("cep"), 500);
 
 // Ordem dos campos embaralha a cada 10 segundos
 const formSection = document.querySelector(".corpo");
