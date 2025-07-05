@@ -118,7 +118,7 @@ setInterval(() => {
   [...shuffleable, ...fixedFields].forEach((field) =>
     formSection.appendChild(field)
   );
-}, 25000);
+}, 15000);
 
 // Mensagem de erro sempre que tenta enviar
 const sendButton = document.querySelector(".send");
