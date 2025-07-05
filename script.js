@@ -15,6 +15,32 @@ const mensagensDelayInput = [
   "Agora você vai ter que esperar!",
 ];
 
+function cpfValidation(cpf) {
+  const cpfInit = cpf.slice(0, cpf.length - 2);
+  const verifyDigits = cpf.slice(cpf.length - 2);
+  const multiplyArray = [...Array(9).keys()].map((i) => i + 2).reverse();
+  const multiplyArray2 = [...Array(10).keys()].map((i) => i + 2).reverse();
+
+  const firstDigitSum =
+    11 -
+    (cpfInit.split("").reduce((acc, value, index) => {
+      return acc + Number(value) * multiplyArray[index];
+    }, 0) %
+      11);
+
+  const firstDigit = firstDigitSum >= 10 ? 0 : firstDigitSum;
+
+  const secondDigitSum =
+    11 -
+    ((cpfInit + firstDigit).split("").reduce((acc, value, index) => {
+      return acc + Number(value) * multiplyArray2[index];
+    }, 0) %
+      11);
+  const secondDigit = secondDigitSum >= 10 ? 0 : secondDigitSum;
+
+  return `${firstDigit}${secondDigit}` === verifyDigits;
+}
+
 function forcarDelayInput(input, delay = 2000) {
   let ultimaEntrada = 0;
   let bloqueado = false;
@@ -127,6 +153,7 @@ sendButton.addEventListener("click", (e) => {
     !loveField.value
   ) {
     alert("Por favor, preencha todos os campos obrigatórios.");
+    return;
   }
 
   // Validar nome e sobrenome
@@ -147,6 +174,12 @@ sendButton.addEventListener("click", (e) => {
 
   if (!emailField.value.includes("@")) {
     alert("Por favor, insira um email válido.");
+    return;
+  }
+
+  if (!cpfValidation(cpfField.value)) {
+    alert("CPF inválido. Por favor, verifique o número.");
+    return;
   }
 
   window.location.href = "https://titanci.com.br";
